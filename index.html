@@ -388,41 +388,41 @@
 </main>
 
 <script>
-// Mock data, mirrored from apps/mobile/lib/data/mock_data.dart
+// Mock data for an Italian A1 course. The Flutter app's mock_data.dart still carries the earlier Spanish course.
 const D = {
   school: 'Riverside Language School',
-  className: 'Spanish A1, Tuesday evenings',
-  teacher: 'Ms. Ortega',
+  className: 'Italian A1, Tuesday evenings',
+  teacher: 'Ms. Ricci',
   student: 'Priya',
   streak: 12, xpToday: 30, dailyGoal: 50, totalXp: 2840, words: 148,
   assignment: { lesson: 'At the café, lesson 3', due: 'due Thursday',
-    phrase: '¿Qué le pongo?', gloss: 'What can I get you?' },
+    phrase: 'Cosa le porto?', gloss: 'What can I get you?' },
   units: [
-    { title: 'Greetings', subtitle: 'Hola, adiós, and introducing yourself', lessons: 5, completed: 5, state: 'done' },
+    { title: 'Greetings', subtitle: 'Ciao, arrivederci, and introducing yourself', lessons: 5, completed: 5, state: 'done' },
     { title: 'At the café', subtitle: 'Ordering food and drinks', lessons: 6, completed: 2, state: 'current' },
     { title: 'Getting around', subtitle: 'Directions, transport, tickets', lessons: 6, completed: 0, state: 'locked' },
     { title: 'Family', subtitle: 'Talking about the people in your life', lessons: 5, completed: 0, state: 'locked' },
     { title: 'Daily routine', subtitle: 'Reflexive verbs and telling the time', lessons: 7, completed: 0, state: 'locked' },
   ],
   cafe: [
-    { type: 'mc', prompt: 'What does this mean?', phrase: 'Un café con leche, por favor.',
+    { type: 'mc', prompt: 'What does this mean?', phrase: 'Un caffè latte, per favore.',
       options: ['A black coffee, please.', 'A coffee with milk, please.', 'The milk is cold.', 'Coffee and cake, please.'], answer: 1 },
-    { type: 'dialogue', prompt: 'Choose the best reply', scene: 'You are at the counter of a café in Madrid.',
-      lines: [{ speaker: 'Camarero', text: '¡Buenos días! ¿Qué le pongo?', translation: 'Good morning! What can I get you?' }],
-      options: ['Me llamo Priya.', 'Un té, por favor.', 'Estoy bien, gracias.'], answer: 1 },
+    { type: 'dialogue', prompt: 'Choose the best reply', scene: 'You are at the counter of a café in Rome.',
+      lines: [{ speaker: 'Barista', text: 'Buongiorno! Cosa le porto?', translation: 'Good morning! What can I get you?' }],
+      options: ['Mi chiamo Priya.', 'Un tè, per favore.', 'Sto bene, grazie.'], answer: 1 },
     { type: 'words', prompt: 'Translate this sentence', source: 'I would like a croissant.',
-      tiles: ['un', 'quiero', 'Quisiera', 'cruasán', 'la', 'agua'], answer: ['Quisiera', 'un', 'cruasán'] },
+      tiles: ['un', 'voglio', 'Vorrei', 'cornetto', 'la', 'acqua'], answer: ['Vorrei', 'un', 'cornetto'] },
     { type: 'match', prompt: 'Match the pairs',
-      pairs: { 'el agua': 'water', 'la cuenta': 'the bill', 'el zumo': 'juice', 'la tostada': 'toast' } },
-    { type: 'speak', prompt: 'Say it out loud', phrase: '¿Cuánto cuesta?', translation: 'How much does it cost?' },
+      pairs: { "l'acqua": 'water', 'il conto': 'the bill', 'il succo': 'juice', 'il panino': 'the sandwich' } },
+    { type: 'speak', prompt: 'Say it out loud', phrase: 'Quanto costa?', translation: 'How much does it cost?' },
   ],
   leaderboard: [
     ['Mateo R.', 410], ['Aisha K.', 365], ['Priya S.', 320, true], ['Jonas W.', 290],
     ['Lena M.', 210], ['Tom B.', 145], ['Sofia D.', 90],
   ],
   review: [
-    ['la cuenta', 'the bill', 1], ['quisiera', 'I would like', 2], ['el zumo', 'juice', 2],
-    ['buenas noches', 'good night', 3], ['encantado', 'pleased to meet you', 4], ['adiós', 'goodbye', 4],
+    ['il conto', 'the bill', 1], ['vorrei', 'I would like', 2], ['il succo', 'juice', 2],
+    ['buonanotte', 'good night', 3], ['piacere', 'pleased to meet you', 4], ['arrivederci', 'goodbye', 4],
   ],
 };
 
@@ -494,7 +494,7 @@ function say(text) {
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'es-ES'; u.rate = .9;
+  u.lang = 'it-IT'; u.rate = .9;
   speechSynthesis.speak(u);
 }
 
@@ -589,11 +589,11 @@ function learnTab() {
         <div class="t">${esc(u.title)}</div>
         ${u.state === 'done' ? `<div class="bar"><i style="width:100%"></i></div><div class="s">Complete</div>` : `<div class="s">${u.lessons} lessons</div>`}</div>`; }).join('');
   return `
-    <div class="top"><div><h1>Hola, ${esc(D.student)}</h1><div class="school">${esc(D.school)}</div></div><div class="tools">${themeBtn()}<span class="avatar">P</span></div></div>
+    <div class="top"><div><h1>Ciao, ${esc(D.student)}</h1><div class="school">${esc(D.school)}</div></div><div class="tools">${themeBtn()}<span class="avatar">P</span></div></div>
     <div class="bento">
       <section class="cell today span2" aria-label="Today's lesson">
         <div class="from">From ${esc(D.teacher)}: ${esc(a.lesson)}, ${esc(a.due)}</div>
-        <div class="phrase-big" lang="es">${esc(a.phrase)}</div>
+        <div class="phrase-big" lang="it">${esc(a.phrase)}</div>
         <div class="gloss">${esc(a.gloss)}</div>
         <div class="actions"><button class="btn glass icon" data-say="${esc(a.phrase)}" aria-label="Play phrase">${I.volume}</button>
           <button class="btn grow" data-start="cafe">Start lesson</button></div>
@@ -607,7 +607,7 @@ function learnTab() {
       <div class="cell"><span class="ic" style="color:var(--sky)">${I.trophy}</span><span class="label">In class this week</span><b class="num big">${ordinal(me)}</b></div>
       <div class="cell"><span class="ic" style="color:var(--violet)">${I.book}</span><span class="label">Words learned</span><b class="num big">${D.words}</b></div>
     </div>
-    <div class="section-head"><h2>Spanish A1</h2><span class="muted small">${D.totalXp.toLocaleString('en')} XP total</span></div>
+    <div class="section-head"><h2>Italian A1</h2><span class="muted small">${D.totalXp.toLocaleString('en')} XP total</span></div>
     <div class="bento">${units}</div>`;
 }
 
@@ -619,12 +619,12 @@ function reviewTab() {
     <div class="bento">
       <section class="cell fading span2" aria-label="${due.length} words to review">
         <div class="label">${due.length} words are fading. About two minutes to bring them back.</div>
-        <div class="word" lang="es">${esc(top[0])}</div>
+        <div class="word" lang="it">${esc(top[0])}</div>
         <div class="meaning">${esc(top[1])}</div>
         <div class="foot"><span class="muted small">Fading fastest</span><button class="btn small" data-start="review">${I.refresh} Start review</button></div>
       </section>
       ${D.review.map(([w, m, s]) => `<div class="cell wcell">
-        <div class="w" lang="es">${esc(w)}</div><div class="m">${esc(m)}</div>
+        <div class="w" lang="it">${esc(w)}</div><div class="m">${esc(m)}</div>
         <div class="strength ${s <= 2 ? 'weak' : ''}" role="img" aria-label="Strength ${s} of 4">${[0, 1, 2, 3].map(i => `<i class="${i < s ? 'on' : ''}"></i>`).join('')}</div></div>`).join('')}
     </div>`;
 }
@@ -714,11 +714,11 @@ function renderLesson() {
 
 function setAnswer(L, v) { L.answer = v; const c = app.querySelector('#check'); if (c) c.disabled = v === null; }
 
-const optionList = (e, L) => e.options.map((o, i) => `<button class="option" data-i="${i}" aria-pressed="${L.st.sel === i}" ${L.checked ? 'disabled' : ''}><span class="key" aria-hidden="true">${'ABCD'[i]}</span><span lang="${e.type === 'dialogue' ? 'es' : 'en'}">${esc(o)}</span></button>`).join('');
+const optionList = (e, L) => e.options.map((o, i) => `<button class="option" data-i="${i}" aria-pressed="${L.st.sel === i}" ${L.checked ? 'disabled' : ''}><span class="key" aria-hidden="true">${'ABCD'[i]}</span><span lang="${e.type === 'dialogue' ? 'it' : 'en'}">${esc(o)}</span></button>`).join('');
 
 const EX = {
   mc(el, e, L) {
-    el.innerHTML = `<div class="phrase"><button class="speaker" aria-label="Play audio">${I.volume}</button><span lang="es">${esc(e.phrase)}</span></div>${optionList(e, L)}`;
+    el.innerHTML = `<div class="phrase"><button class="speaker" aria-label="Play audio">${I.volume}</button><span lang="it">${esc(e.phrase)}</span></div>${optionList(e, L)}`;
     el.querySelector('.speaker').onclick = () => say(e.phrase);
     el.querySelectorAll('.option').forEach(b => b.onclick = () => {
       L.st.sel = +b.dataset.i;
@@ -730,9 +730,9 @@ const EX = {
     const draw = () => {
       el.innerHTML = `<div class="scene">${esc(e.scene)}</div>
         ${e.lines.map((ln, i) => `<button class="bubble" data-l="${i}" aria-label="${esc(ln.text)}. Tap to translate">
-          <div class="who">${esc(ln.speaker)}</div><div class="say" lang="es">${esc(ln.text)}</div>
+          <div class="who">${esc(ln.speaker)}</div><div class="say" lang="it">${esc(ln.text)}</div>
           <div class="tr">${L.st.tr ? esc(ln.translation) : 'Tap to translate'}</div></button>`).join('')}
-        ${L.st.sel != null ? `<div class="bubble mine"><div class="say" lang="es">${esc(e.options[L.st.sel])}</div></div>` : ''}
+        ${L.st.sel != null ? `<div class="bubble mine"><div class="say" lang="it">${esc(e.options[L.st.sel])}</div></div>` : ''}
         <div style="margin-top:18px">${optionList(e, L)}</div>`;
       el.querySelectorAll('.bubble[data-l]').forEach(b => b.onclick = () => { L.st.tr = !L.st.tr; say(e.lines[+b.dataset.l].text); draw(); });
       el.querySelectorAll('.option').forEach(b => b.onclick = () => { L.st.sel = +b.dataset.i; setAnswer(L, L.st.sel === e.answer); draw(); });
@@ -743,8 +743,8 @@ const EX = {
     L.st.picked ??= [];
     const draw = () => {
       el.innerHTML = `<div class="source">${esc(e.source)}</div>
-        <div class="answer-line" aria-label="Your answer">${L.st.picked.map((t, k) => `<button class="tile" data-k="${k}" lang="es" ${L.checked ? 'disabled' : ''}>${esc(e.tiles[t])}</button>`).join('')}</div>
-        <div class="bank">${e.tiles.map((t, i) => `<button class="tile ${L.st.picked.includes(i) ? 'used' : ''}" data-i="${i}" lang="es" ${L.checked || L.st.picked.includes(i) ? 'disabled' : ''}>${esc(t)}</button>`).join('')}</div>`;
+        <div class="answer-line" aria-label="Your answer">${L.st.picked.map((t, k) => `<button class="tile" data-k="${k}" lang="it" ${L.checked ? 'disabled' : ''}>${esc(e.tiles[t])}</button>`).join('')}</div>
+        <div class="bank">${e.tiles.map((t, i) => `<button class="tile ${L.st.picked.includes(i) ? 'used' : ''}" data-i="${i}" lang="it" ${L.checked || L.st.picked.includes(i) ? 'disabled' : ''}>${esc(t)}</button>`).join('')}</div>`;
       el.querySelectorAll('[data-i]').forEach(b => b.onclick = () => { L.st.picked.push(+b.dataset.i); upd(); });
       el.querySelectorAll('[data-k]').forEach(b => b.onclick = () => { L.st.picked.splice(+b.dataset.k, 1); upd(); });
     };
@@ -761,7 +761,7 @@ const EX = {
       const btn = (side, v) => {
         const done = L.st.done.includes(side === 'l' ? v : Object.keys(e.pairs).find(k => e.pairs[k] === v));
         const sel = L.st.sel && L.st.sel[0] === side && L.st.sel[1] === v;
-        return `<button class="pair ${done ? 'done' : ''} ${wrong.includes(v) ? 'wrong' : ''}" data-s="${side}" data-v="${esc(v)}" lang="${side === 'l' ? 'es' : 'en'}" aria-pressed="${!!sel}" ${done || L.checked ? 'disabled' : ''}>${esc(v)}</button>`;
+        return `<button class="pair ${done ? 'done' : ''} ${wrong.includes(v) ? 'wrong' : ''}" data-s="${side}" data-v="${esc(v)}" lang="${side === 'l' ? 'it' : 'en'}" aria-pressed="${!!sel}" ${done || L.checked ? 'disabled' : ''}>${esc(v)}</button>`;
       };
       el.innerHTML = `<div class="pairs">${L.st.left.map((l, i) => btn('l', l) + btn('r', L.st.right[i])).join('')}</div>`;
       el.querySelectorAll('.pair').forEach(b => b.onclick = () => pick(b.dataset.s, b.dataset.v));
@@ -783,7 +783,7 @@ const EX = {
     const label = { idle: 'Tap to speak', listening: 'Listening…', heard: 'Great pronunciation' };
     L.st.mic ??= 'idle';
     const draw = () => {
-      el.innerHTML = `<div class="phrase" style="margin-bottom:6px"><button class="speaker" aria-label="Play audio">${I.volume}</button><span lang="es">${esc(e.phrase)}</span></div>
+      el.innerHTML = `<div class="phrase" style="margin-bottom:6px"><button class="speaker" aria-label="Play audio">${I.volume}</button><span lang="it">${esc(e.phrase)}</span></div>
         <div class="muted" style="padding-left:60px">${esc(e.translation)}</div>
         <div class="mic-wrap"><button class="mic ${L.st.mic}" aria-label="${label[L.st.mic]}" ${L.st.mic !== 'idle' ? 'disabled' : ''}>${L.st.mic === 'heard' ? I.check : I.mic}</button>
         <span style="font-weight:600;margin-top:8px">${label[L.st.mic]}</span>
